@@ -1,0 +1,17 @@
+B|101|Introduction to Scala|true
+B|115|Hands on machine Learning|false
+B|110|Networking Fundamentals|true
+B|106|Web Development with HTML and CSS|false
+B|116|Think with Data|true
+B|109|JavaScript: The Good Parts|true
+B|105|Python for Beginners|true
+B|113|Graphic Design Basics|true
+B|112|Machine Learning for Dummies|true
+B|104|Database Design|true
+B|114|Cryptocurrency and Blockchain|true
+B|107|Artificial Intelligence Essentials|true
+B|111|Digital Marketing Strategies|false
+B|117|Automate The Boring Stuff With Python|true
+B|102|Data Structures and Algorithms|true
+B|103|Programming in Java|true
+B|108|Mobile App Development with React Native|true
