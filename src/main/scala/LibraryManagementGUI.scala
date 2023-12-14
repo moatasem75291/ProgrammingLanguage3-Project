@@ -8,12 +8,11 @@ import scalafx.collections.ObservableBuffer
 import scalafx.scene.control.TextInputDialog
 
 object LibraryManagementGUI extends JFXApp {
-  val library = new Library()
+  private val library = new Library()
 
   // Load data from separate files
   library.loadFromFile()
 
-  private var selectedChoice: String = ""
   private val resultTextArea = new TextArea()
   private val labeledChoiceBox = new Label("Choose an action:")
   private val choiceBox = new ChoiceBox[String](ObservableBuffer(
@@ -24,7 +23,6 @@ object LibraryManagementGUI extends JFXApp {
     "Display Registered Users",
     "Generate Transaction Report",
     "Generate User Report",
-    "Save",
     "Exit")
   )
 
@@ -173,12 +171,6 @@ object LibraryManagementGUI extends JFXApp {
               case None =>
                 resultTextArea.text = "Generate User Report canceled."
             }
-
-
-          case "Save" =>
-            library.saveToFile()
-            resultTextArea.text = "Library data saved."
-
           case "Exit" =>
             resultTextArea.text = "Exiting... Let's see you again :)"
             System.exit(0)

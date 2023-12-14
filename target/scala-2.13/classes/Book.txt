@@ -4,7 +4,7 @@ B|110|Networking Fundamentals|true
 B|106|Web Development with HTML and CSS|false
 B|116|Think with Data|true
 B|109|JavaScript: The Good Parts|true
-B|105|Python for Beginners|true
+B|105|Python for Beginners|false
 B|113|Graphic Design Basics|true
 B|112|Machine Learning for Dummies|true
 B|104|Database Design|true
