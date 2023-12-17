@@ -1,71 +1,91 @@
-# Library Management System
+# Library Management System 📚💻
 
-## Overview
+The Library Management System is a Scala-based application designed to manage the operations of a library. It provides functionalities for registering users, adding books, handling check-out and return of books, generating reports, and more. The system is built using Scala and ScalaFX for the graphical user interface, and it incorporates the Akka actor system for handling system messages.
 
-This repository contains a Library Management System implemented in Scala with a graphical user interface (GUI) using ScalaFX. The system enables users to register, add books, check-in, and return books, with persistent data storage in text files.
+## Table of Contents
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Database](#database)
+- [Dependencies](#dependencies)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
+- [Project Structure](#project-structure)
+- [Contribute](#contribute)
+- [Show your support](#show-your-support)
+- [License](#license)
 
 ## Features
+- **User Registration:** Register new users with unique IDs and names.
+- **Book Management:** Add new books with unique IDs and titles.
+- **Check-Out and Return:** Manage the check-out and return of books, updating availability status.
+- **Reports:** Generate transaction reports, user-specific reports, and display lists of registered users and books.
+- **Graphical User Interface:** Utilizes ScalaFX for a user-friendly interface.
+- **Akka Actor System:** Incorporates an Akka actor system for handling system messages and graceful shutdown.
 
-- **User Registration:** Register users with unique IDs and names.
-- **Book Addition:** Add books with unique IDs and titles.
-- **Book Transactions:** Check out and return books, recording transactions.
-- **Reporting:** Generate reports of transactions, user-specific transactions, and display registered users.
-
-## Technologies Used
-
-- **Scala:** Programming language used for implementation.
-- **ScalaFX:** Library for building GUI applications in Scala.
-- **File I/O:** Persistent storage of user, book, and transaction data.
-
-## Project Structure
-
-### Library Management System (GUI)
-
-- **File:** `LibraryManagementGUI.scala`
-- **Description:** Handles user interaction, displays the GUI, and communicates with the `Library` class.
-
-### Library Management System (Core)
-
-- **Files:** `Library.scala`, `User.scala`, `Book.scala`, `Transaction.scala`
-- **Description:** Contains the core logic for user and book management, transactions, and data storage.
-
-### User Class
-
-- **File:** `User.scala`
-- **Description:** Represents a user in the library with properties such as user ID and name.
-
-### Transaction Classes
-
-- **Files:** `Transaction.scala`
-- **Description:** Represents a transaction in the library, recording user actions.
-
-### Book Class
-
-- **File:** `Book.scala`
-- **Description:** Represents a book in the library with properties such as book ID, title, and availability status.
+## Getting Started
+ **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/LibraryManagementSystem.git
+   cd LibraryManagementSystem
+   ```
 
 ## Usage
+Upon running the application, a graphical user interface will be displayed. Use the provided options to register users, add books, perform check-out and return operations, generate reports, and more. Follow the on-screen prompts for user input.
 
-1. **Run the GUI Application:**
+## Database
+The application uses an SQLite database to persist data. Database initialization and table creation are handled during the system's startup. The database file is located at `database.db` by default.
 
-   - Execute the `LibraryManagementGUI` object to launch the GUI.
-
-2. **Interact with the GUI:**
-
-   - Use the GUI to register users, add books, perform transactions, and generate reports.
-
-3. **Data Persistence:**
-   - User, book, and transaction data is persistently stored in text files (`User.txt`, `Book.txt`, `Transaction.txt`).
-
-## Setup
-
-1. **Dependencies:**
-
-   - Ensure you have Scala and ScalaFX installed.
-
-2. **Run the Application:**
-   - Run the `LibraryManagementGUI` object to start the GUI.
+## Dependencies
+   - Scala
+   - ScalaFX
+   - Akka Actor System
+   - SQLite JDBC Driver
 
 ## Contributing
+   1- Fork the repository.
+   2- Create a new branch for your feature or bug fix: git checkout -b feature/my-feature.
+   3- Make your changes and commit them: git commit -m 'Add new feature'.
+   4- Push to the branch: git push origin feature/my-feature.
+   5- Submit a pull request.
 
-If you would like to contribute or report issues, please create a new branch, make your changes, and submit a pull request.
+## Acknowledgments
+Special thanks to the Scala, ScalaFX, and Akka communities for their valuable contributions. The SQLite JDBC Driver has been instrumental in enabling database connectivity.
+
+## Project Structure
+``` CSS
+LibraryManagementSystem/
+├── src/
+│   ├── main/
+│   │   └── scala/
+│   │       └── com/
+│   │           └── yourusername/
+│   │               └── librarymanagementsystem/
+│   │                   ├── LibraryManagementGUI.scala
+│   │                   ├── Library.scala
+│   │                   ├── Book.scala
+│   │                   ├── User.scala
+│   │                   ├── Transaction.scala
+│   │                   ├── LibraryActors.scala
+│   │                   └── ... (other source files)
+│   └── resources/
+│       └── application.conf
+├── target/
+├── project/
+│   └── build.properties
+├── build.sbt
+└── README.md
+```
+
+## Contribute
+Contributions are welcome! Please review the contribution guidelines for details.
+
+## Show your support
+Give a ⭐️ if you found this project helpful or consider sponsoring the project.
+
+## License
+This project is licensed under the MIT License.
+
+```python
+Feel free to make any further adjustments as needed for your project.
+```
