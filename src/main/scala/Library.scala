@@ -1,10 +1,7 @@
 import scala.collection.mutable.ArrayBuffer
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.sql.{Connection, DriverManager,PreparedStatement, ResultSet}
+import java.sql.{Connection, DriverManager, PreparedStatement, ResultSet}
 
 class Library {
-  // JDBC URL, username, and password of SQLite server
   private val url = "jdbc:sqlite:C:\\Users\\MBR\\IdeaProjects\\LibraryManagementSystem\\database.db"
   private val connection: Connection = DriverManager.getConnection(url)
   private var users = Map[Int, User]()
@@ -14,10 +11,8 @@ class Library {
   def getBooks: Map[Int, Book] = books
   def userExists(userId: Int): Boolean = users.contains(userId)
   def bookExists(bookId: Int): Boolean = books.contains(bookId)
-
   // Initialize tables if not exist
   initDatabase()
-
   private def initDatabase(): Unit = {
     val statement = connection.createStatement()
 
@@ -60,7 +55,7 @@ class Library {
     statement.close()
   }
 
-  def loadFromFile(): Unit = {
+  def loadFromDataBase(): Unit = {
     loadUsersFromDatabase()
     loadBooksFromDatabase()
     loadTransactionsFromDatabase()
@@ -217,17 +212,28 @@ class Library {
     usersInfo.mkString("\n")
   }
 
+  def displayAllBooks(): String = {
+    val query = "SELECT * FROM books;"
+    val resultSet: ResultSet = connection.createStatement().executeQuery(query)
+
+    val booksInfo = new ArrayBuffer[String]()
+    while (resultSet.next()) {
+      val bookId = resultSet.getInt("book_id")
+      val title = resultSet.getString("title")
+      val isAvailable = resultSet.getString("is_available")
+      booksInfo += s"ID: $bookId, Title: $title, Is Available: $isAvailable"
+    }
+
+    booksInfo.mkString("\n")
+  }
+
   def checkOutBook(user: User, book: Book): String = {
     if (book.isAvailable) {
       try {
         // Insert the new transaction into the 'transactions' table
         val insertTransactionSQL =
           "INSERT INTO transactions (user_id, book_id, action, timestamp) VALUES (?, ?, ?, CURRENT_TIMESTAMP)"
-        val insertTransactionStatement: PreparedStatement = connection.prepareStatement(insertTransactionSQL)
-        insertTransactionStatement.setInt(1, user.userId)
-        insertTransactionStatement.setInt(2, book.bookId)
-        insertTransactionStatement.setString(3, "CHECKOUT")
-        insertTransactionStatement.executeUpdate()
+        insertTOTransactionTable(insertTransactionSQL, "CHECKOUT", book, user)
 
         // Update the local 'transactions' array
         transactions += Transaction(user, book, "CHECKOUT")
@@ -271,21 +277,24 @@ class Library {
       updateBookStatement.setInt(2, book.bookId)
       updateBookStatement.executeUpdate()
 
-      val insertTransactionStatement: PreparedStatement = connection.prepareStatement(insertTransactionQuery)
-      insertTransactionStatement.setInt(1, user.userId)
-      insertTransactionStatement.setInt(2, book.bookId)
-      insertTransactionStatement.setString(3, "RETURN")
-      insertTransactionStatement.executeUpdate()
+      insertTOTransactionTable(insertTransactionQuery, "RETURN", book, user)
 
       s"Book '${book.title}' returned by user '${user.name}'."
     } else {
       s"User '${user.name}' did not check out the book '${book.title}'."
     }
   }
+  private def insertTOTransactionTable(query:String, action:String, book: Book, user:User ): Unit = {
+    val insertTransactionStatement: PreparedStatement = connection.prepareStatement(query)
+    insertTransactionStatement.setInt(1, user.userId)
+    insertTransactionStatement.setInt(2, book.bookId)
+    insertTransactionStatement.setString(3, action)
+    insertTransactionStatement.executeUpdate()
+  }
+  def exitSystem(): Unit = {
+    System.exit(0)
+  }
   sys.addShutdownHook {
     connection.close()
-  }
-  private def getCurrentTimestamp: String = {
-    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
   }
 }

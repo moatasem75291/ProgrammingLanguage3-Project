@@ -1,26 +1,28 @@
+import akka.actor.{ActorRef, ActorSystem, Props}
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.control._
 import scalafx.scene.layout._
-
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.control.TextInputDialog
-
 object LibraryManagementGUI extends JFXApp {
   private val library = new Library()
 
-  // Load data from separate files
-  library.loadFromFile()
+  private val actorSystem: ActorSystem = ActorSystem("ActorSystem")
+  private val actor: ActorRef = actorSystem.actorOf(Props[LibraryActors], "LibrarySystem")
+
+  library.loadFromDataBase()
 
   private val resultTextArea = new TextArea()
   private val labeledChoiceBox = new Label("Choose an action:")
   private val choiceBox = new ChoiceBox[String](ObservableBuffer(
     "Register User",
     "Add Book",
-    "Check In Book",
+    "Check Out Book",
     "Return Book",
     "Display Registered Users",
+    "Display Books",
     "Generate Transaction Report",
     "Generate User Report",
     "Exit")
@@ -83,7 +85,7 @@ object LibraryManagementGUI extends JFXApp {
                 resultTextArea.text = "Book addition canceled."
             }
 
-          case "Check In Book" =>
+          case "Check Out Book" =>
             val userIdDialog = new TextInputDialog(defaultValue = "0")
             userIdDialog.headerText = "Enter user ID:"
             userIdDialog.contentText = "User ID:"
@@ -149,6 +151,10 @@ object LibraryManagementGUI extends JFXApp {
             val usersReport = library.displayRegisteredUsers()
             resultTextArea.text = usersReport
 
+          case "Display Books" =>
+            val booksReport = library.displayAllBooks()
+            resultTextArea.text = booksReport
+
           case "Generate Transaction Report" =>
             val transactionsReport = library.generateTransactionReport()
             resultTextArea.text = transactionsReport
@@ -173,7 +179,7 @@ object LibraryManagementGUI extends JFXApp {
             }
           case "Exit" =>
             resultTextArea.text = "Exiting... Let's see you again :)"
-            System.exit(0)
+            actor ! "Exit"
 
           case _ =>
             resultTextArea.text = "Invalid choice. Please choose a valid action."
@@ -185,13 +191,10 @@ object LibraryManagementGUI extends JFXApp {
 
 
       val vbox = new VBox(10,
-        new HBox(10),
-        new HBox(10),
         labeledChoiceBox,
         choiceBox,
         resultTextArea
       )
-
       root = new BorderPane {
         center = vbox
       }

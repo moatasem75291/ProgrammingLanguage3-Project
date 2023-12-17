@@ -6,10 +6,9 @@ class Transaction(val user: User, val book: Book, val action: String, val timest
 }
 
 
-
 object Transaction {
   def apply(user: User, book: Book, action: String): Transaction = {
-    val timestamp = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss").format(new Date())
+    val timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
     new Transaction(user, book, action, timestamp)
   }
 }
