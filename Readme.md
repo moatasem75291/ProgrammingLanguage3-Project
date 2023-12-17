@@ -48,7 +48,7 @@ The application uses an SQLite database to persist data. Database initialization
    - Make your changes and commit them: git commit -m 'Add new feature'.
    - Push to the branch: git push origin feature/my-feature.
    - Submit a pull request.
-
+     
 ## Acknowledgments
 Special thanks to the Scala, ScalaFX, and Akka communities for their valuable contributions. The SQLite JDBC Driver has been instrumental in enabling database connectivity.
 
