@@ -37,17 +37,14 @@ Upon running the application, a graphical user interface will be displayed. Use 
 The application uses an SQLite database to persist data. Database initialization and table creation are handled during the system's startup. The database file is located at `database.db` by default.
 
 ## Dependencies
-      - Scala
-      - ScalaFX
-      - Akka Actor System
-      - SQLite JDBC Driver
+   - Scala
+   - ScalaFX
+   - Akka Actor System
+   - SQLite JDBC Driver
 
 ## Contributing
-   - Fork the repository.
-   - Create a new branch for your feature or bug fix: git checkout -b feature/my-feature.
-   - Make your changes and commit them: git commit -m 'Add new feature'.
-   - Push to the branch: git push origin feature/my-feature.
-   - Submit a pull request.
+- Fork the repository.
+- Create a new branch for your feature or bug fix: `git checkout -b feature/my-feature.`
      
 ## Acknowledgments
 Special thanks to the Scala, ScalaFX, and Akka communities for their valuable contributions. The SQLite JDBC Driver has been instrumental in enabling database connectivity.
