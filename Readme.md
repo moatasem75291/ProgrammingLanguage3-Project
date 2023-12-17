@@ -37,10 +37,10 @@ Upon running the application, a graphical user interface will be displayed. Use 
 The application uses an SQLite database to persist data. Database initialization and table creation are handled during the system's startup. The database file is located at `database.db` by default.
 
 ## Dependencies
-- Scala
-- ScalaFX
-- Akka Actor System
-- SQLite JDBC Driver
+      - Scala
+      - ScalaFX
+      - Akka Actor System
+      - SQLite JDBC Driver
 
 ## Contributing
    - Fork the repository.
